@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-color: black;
+  color: white;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: rgb(254, 221, 103);
+}
+
+#majors {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#majors li {
+  margin: 10px 3px;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 1.4em;
+  background-color: #666;
+  color: white;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#majors li:hover {
+  background-color: rgb(254, 221, 103);
+  color: black;
+}
+
+.badge {
+  margin-right: 15px;
+  padding: 5px 10px;
+  border-radius: 50px;
+  background-color: rgb(254, 221, 103);
+  color: black;
+  font-size: 0.8em;
+}
+
+.button-bar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.button-bar button, .button-bar input {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(254, 221, 103);
+  color: black;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+#search-box {
+  border: none;
+}
+
+.pdf-button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: white;
+  color: black;
+  text-decoration: none;
+  font-size: 0.8em;
+}
+
+</style>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {
+  var $majors = $( "#majors" );
+  $majors.sortable({
+    stop: function() {
+      updateNumbers();
+    },
+    revert: 200
+  });
+  $majors.disableSelection();
+
+  $('.reset-button').click(function() {
+    var list = $majors.children('li').get();
+    list.sort(function(a, b) {
+      var keyA = $(a).text();
+      var keyB = $(b).text();
+      if (keyA < keyB) return -1;
+      if (keyA > keyB) return 1;
+      return 0;
+    });
+    $.each(list, function(i, li) {
+      $majors.append(li);
+    });
+    updateNumbers();
+  });
+
+  $('#search-box').on('keyup', function() {
+    var value = $(this).val().toLowerCase();
+    $majors.children('li').filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+    });
+  });
+
+  function updateNumbers() {
+    $('#majors li').each(function(i) {
+      $(this).find('.badge').text(i+1);
+    });
+  }
+} );
+</script>
+</head>
+<body>
+<h1>Choix des Majeures</h1>
+<div class="button-bar">
+  <button class="reset-button">Réinitialiser la liste</button>
+  <input type="text" id="search-box" placeholder="Rechercher...">
+</div>
+<ul id="majors">
+    <li class="ui-state-default"><span class="badge">1</span>Conversion de l'énergie<a href="https://moodle.esme.fr/pluginfile.php/124162/mod_amanote/content/1/Majeure%20Conversion%20de%20l%C3%89nergie%20-%20Juin%202023.pdf" class="pdf-button" target="_blank">PDF</a></li>
+  <li class="ui-state-default"><span class="badge">2</span>Energies Renouvelables<a href="https://moodle.esme.fr/pluginfile.php/124164/mod_amanote/content/1/Majeure%20Energies%20Renouvelables%20-%20Juin%202023.pdf" class="pdf-button" target="_blank">PDF</a></li>
+  <li class="ui-state-default"><span class="badge">3</span>Power Conversion and Renewable<a href="https://moodle.esme.fr/pluginfile.php/124156/mod_amanote/content/1/Majeure%20Power%20Conversion%20and%20Renewable%20Energy%20-%20Juin%202023.pdf" class="pdf-button" target="_blank">PDF</a></li>
+  <li class="ui-state-default"><span class="badge">4</span>Véhicule Electrique et Véhicule Autonome<a href="https://moodle.esme.fr/pluginfile.php/124158/mod_amanote/content/1/Majeure%20V%C3%A9hicule%20%C3%89lectrique%20et%20V%C3%A9hicule%20Autonome%20-%20Juin%202023.pdf" class="pdf-button" target="_blank">PDF</a></li>
+  <li class="ui-state-default"><span class="badge">5</span>Mécatronique<a href="https://moodle.esme.fr/pluginfile.php/124155/mod_amanote/content/1/Majeure%20M%C3%A9catronique%20-%20Juin%202023.pdf" class="pdf-button" target="_blank">PDF</a></li>
+  <li class="ui-state-default"><span class="badge">6</span>Biomécanique Robotique Médicale<a href="https://moodle.esme.fr/pluginfile.php/124159/mod_amanote/content/1/Majeure%20Biom%C3%A9canique%20Robotique%20M%C3%A9dicale%20-%20Juin%202023.pdf" class="pdf-button" target="_blank">PDF</a></li>
+  <li class="ui-state-default"><span class="badge">7</span>Système Embarqués<a href="https://moodle.esme.fr/pluginfile.php/124157/mod_amanote/content/1/Majeure%20Syst%C3%A8mes%20Embarqu%C3%A9s%20-%20Juin%202023.pdf" class="pdf-button" target="_blank">PDF</a></li>
+  <li class="ui-state-default"><span class="badge">8</span>Ingenieur Designer<a href="https://moodle.esme.fr/pluginfile.php/124153/mod_amanote/content/1/Majeure%20Ingenieur%20Designer%20-%20Juin%202023.pdf" class="pdf-button" target="_blank">PDF</a></li>
+  <li class="ui-state-default"><span class="badge">9</span>IoT Smart Cities<a href="https://moodle.esme.fr/pluginfile.php/124154/mod_amanote/content/1/Majeure%20IoT%20%20Smart%20Cities%20-%20Juin%202023.pdf" class="pdf-button" target="_blank">PDF</a></li>
+  <li class="ui-state-default"><span class="badge">10</span>Ingenieur des Transformations Digitales<a href="https://moodle.esme.fr/pluginfile.php/124166/mod_amanote/content/1/Majeure%20Ing%C3%A9nieur%20des%20Transformations%20Digitales%20-%20Juin%202023.pdf" class="pdf-button" target="_blank">PDF</a></li>
+  <li class="ui-state-default"><span class="badge">11</span>Cybersecurity<a href="https://moodle.esme.fr/pluginfile.php/124163/mod_amanote/content/1/Majeure%20Cybersecurity%20-%20Juin%202023.pdf" class="pdf-button" target="_blank">PDF</a></li>
+  <li class="ui-state-default"><span class="badge">12</span>IA<a href="https://moodle.esme.fr/pluginfile.php/124167/mod_amanote/content/1/Majeure%20IA%20-%20Juin%202023.pdf" class="pdf-button" target="_blank">PDF</a></li>
+  <li class="ui-state-default"><span class="badge">13</span>Biotech et Numérique<a href="https://moodle.esme.fr/pluginfile.php/124161/mod_amanote/content/1/Majeure%20Biotech%20et%20Num%C3%A9rique%20-%20Juin%202023.pdf" class="pdf-button" target="_blank">PDF</a></li>
+  <li class="ui-state-default"><span class="badge">14</span>Big Data Marketing<a href="https://moodle.esme.fr/pluginfile.php/124160/mod_amanote/content/1/Majeure%20Big%20Data%20%20Digital%20Marketing%20-%20Juin%202023.pdf" class="pdf-button" target="_blank">PDF</a></li>
+  <li class="ui-state-default"><span class="badge">15</span>Ingénierie Financière et Statistique<a href="https://moodle.esme.fr/pluginfile.php/124165/mod_amanote/content/1/Majeure%20Ing%C3%A9nierie%20Financi%C3%A8re%20et%20Statistique%20-%20Juin%202023.pdf" class="pdf-button" target="_blank">PDF</a></li>
+</ul>
+</body>
+</html>
